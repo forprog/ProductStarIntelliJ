@@ -11,20 +11,19 @@ public class Homework2 {
         HashSet<String> wordsDistinct = getWordsLowerCase(input);
 
         HashMap<AnagramLetterMap,Integer> lettersToWordCount = new HashMap<>();
-        HashMap<AnagramLetterMap,ArrayList<String>> lettersToWords = new HashMap<>();
+        HashMap<AnagramLetterMap,TreeSet<String>> lettersToWords = new HashMap<>();
 
         for (String word:wordsDistinct) {
             AnagramLetterMap anagramLetterMap = new AnagramLetterMap(word);
             lettersToWordCount.put(anagramLetterMap,lettersToWordCount.getOrDefault(anagramLetterMap,0)+1);
-            var curWords = lettersToWords.getOrDefault(anagramLetterMap, new ArrayList<>());
+            var curWords = lettersToWords.getOrDefault(anagramLetterMap, new TreeSet<>());
             curWords.add(word);
             lettersToWords.put(anagramLetterMap,curWords);
         }
 
         TreeMap<AnagramLetterMap,Integer> newMap = valueSort(lettersToWordCount);
-        newMap.putAll(lettersToWordCount);
 
-        lettersToWordCount.entrySet().stream()
+        newMap.entrySet().stream()
                 .limit(3)
                 .forEach(anagramLetterMapIntegerEntry -> lettersToWords.get(anagramLetterMapIntegerEntry.getKey())
                         .forEach(System.out::println));
@@ -58,7 +57,7 @@ public class Homework2 {
                 if (comp == 0)
                     return 1;
                 else
-                    return comp;
+                    return -comp;
             }
 
         };

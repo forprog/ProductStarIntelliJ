@@ -23,9 +23,20 @@ public class AnagramLetterMap implements Comparable<AnagramLetterMap> {
         this.letters = letters;
     }
 
-    public boolean equals(AnagramLetterMap letterMap1){
-        if (this.getLetters().size() == letterMap1.getLetters().size()){
-            var ar1 = letterMap1.getLetters().entrySet().toArray();
+    @Override
+    public int hashCode() {
+        int result = this.letters.entrySet().stream()
+                .map(characterIntegerEntry -> characterIntegerEntry.getKey() * characterIntegerEntry.getValue())
+                .reduce(0, (integer, integer2) -> integer+integer2);
+
+        return result * 31;
+
+    }
+
+    @Override
+    public boolean equals(Object letterMap1) {
+        if (this.getLetters().size() == ((AnagramLetterMap) letterMap1).getLetters().size()){
+            var ar1 = ((AnagramLetterMap) letterMap1).getLetters().entrySet().toArray();
             var ar2 = this.getLetters().entrySet().toArray();
             for (int i = 0; i < ar1.length; i++) {
                 Map.Entry<Character,Integer> element1 = (Map.Entry<Character,Integer>) ar1[i];
@@ -36,7 +47,7 @@ public class AnagramLetterMap implements Comparable<AnagramLetterMap> {
             }
             return true;
         } else return false;
-    }
+     }
 
     @Override
     public int compareTo(@NotNull AnagramLetterMap o) {
