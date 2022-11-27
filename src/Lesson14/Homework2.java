@@ -29,7 +29,7 @@ public class Homework2 {
                         .forEach(System.out::println));
     }
 
-     private static HashSet<String> getWordsLowerCase(String str){
+     public static HashSet<String> getWordsLowerCase(String str){
         String WORD_PATTERN = "[a-zA-Zа-яА-Я]+";
         Pattern pattern = Pattern.compile(WORD_PATTERN);
         Matcher matcher = pattern.matcher(str);
